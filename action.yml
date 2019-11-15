@@ -1,0 +1,15 @@
+name: 'Delete a package'
+description: 'Delete a package from the Github Registry'
+branding:
+  icon: 'delete'
+  color: 'red'
+inputs:
+  packageVersionId:
+    description: 'The version ID of the package to delete'
+    required: true
+outputs:
+  success:
+    description: 'Whether the deletion succeeded or failed'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
