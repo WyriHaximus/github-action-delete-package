@@ -13,7 +13,7 @@ sleep 3
 
 cat /workdir/payload.json
 
-curl --request PATCH \
+curl --request POST \
   --url https://api.github.com/graphql \
   --header "Accept: application/vnd.github.package-deletes-preview+json" \
   --header "Authorization: Bearer ${GITHUB_TOKEN}" \
