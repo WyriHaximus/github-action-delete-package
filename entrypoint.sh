@@ -17,7 +17,6 @@ curl --request PATCH \
   --url https://api.github.com/graphql \
   --header "Accept: application/vnd.github.package-deletes-preview+json" \
   --header "Authorization: Bearer ${GITHUB_TOKEN}" \
-  --header 'Content-Type: application/json' \
   --data "$(cat /workdir/payload.json)" \
   -o /workdir/response.json \
   -s
