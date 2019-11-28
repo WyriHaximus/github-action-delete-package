@@ -9,6 +9,10 @@ fi
 
 echo -e "{\"query\": \"mutation { deletePackageVersion(input:{packageVersionId:\\\"$INPUT_PACKAGEVERSIONID\\\"}) { success }}\"}" > /workdir/payload.json
 
+sleep 3
+
+cat /workdir/payload.json
+
 curl --request PATCH \
   --url https://api.github.com/graphql \
   --header "Accept: application/vnd.github.package-deletes-preview+json" \
