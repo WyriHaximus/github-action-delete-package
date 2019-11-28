@@ -9,7 +9,7 @@ inputs:
     required: true
 outputs:
   success:
-    description: 'Whether the deletion succeeded or failed'
+    description: 'Whether the deletion succeeded or failed; true or false'
 runs:
   using: 'docker'
   image: 'Dockerfile'

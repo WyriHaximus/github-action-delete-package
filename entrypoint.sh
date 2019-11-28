@@ -9,9 +9,10 @@ fi
 
 echo -e "{\"query\": \"mutation { deletePackageVersion(input:{packageVersionId:\\\"$INPUT_PACKAGEVERSIONID\\\"}) { success }}\"}" > /workdir/payload.json
 
-sleep 3
-
-cat /workdir/payload.json
+while [ ! -f /workdir/payload.json ]
+do
+  sleep 0.1
+done
 
 curl --request POST \
   --url https://api.github.com/graphql \
@@ -21,6 +22,9 @@ curl --request POST \
   -o /workdir/response.json \
   -s
 
-sleep 3
+while [ ! -f /workdir/response.json ]
+do
+  sleep 0.1
+done
 
-cat /workdir/response.json
+printf "::set-output name=success::%s" $(cat /workdir/response.json | jq '.data.deletePackageVersion.success')
