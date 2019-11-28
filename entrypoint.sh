@@ -17,3 +17,7 @@ curl --request PATCH \
   --data "$(cat /workdir/payload.json)" \
   -o /workdir/response.json \
   -s
+
+sleep 3
+
+cat /workdir/response.json
