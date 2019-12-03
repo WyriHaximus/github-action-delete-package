@@ -1,5 +1,5 @@
 name: 'Delete a package'
-description: 'Delete a package from the Github Registry'
+description: 'Delete a package from the Github Package Registry'
 branding:
   icon: 'delete'
   color: 'red'
