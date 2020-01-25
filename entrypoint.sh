@@ -7,24 +7,36 @@ if [ $(echo ${INPUT_PACKAGEVERSIONID} | wc -c) -eq 1 ] ; then
   exit 1
 fi
 
-echo -e "{\"query\": \"mutation { deletePackageVersion(input:{packageVersionId:\\\"$INPUT_PACKAGEVERSIONID\\\"}) { success }}\"}" > /workdir/payload.json
+delete_package() {
+#  echo -e "{\"query\": \"mutation { deletePackageVersion(input:{packageVersionId:\\\"$1\\\"}) { success }}\"}" >> /workdir/payload.json
+  echo -e "$1"
 
-while [ ! -f /workdir/payload.json ]
-do
-  sleep 0.1
-done
+#  while [ ! -f /workdir/payload.json ]
+#  do
+#    sleep 0.1
+#  done
+#
+#  cat /workdir/payload.json
+}
 
-curl --request POST \
-  --url https://api.github.com/graphql \
-  --header "Accept: application/vnd.github.package-deletes-preview+json" \
-  --header "Authorization: Bearer ${GITHUB_TOKEN}" \
-  --data "$(cat /workdir/payload.json)" \
-  -o /workdir/response.json \
-  -s
+export -f delete_package
 
-while [ ! -f /workdir/response.json ]
-do
-  sleep 0.1
-done
+echo "${INPUT_PACKAGEVERSIONID}" | tr "," "\r\n" | xargs -I {} bash -c 'delete_package "$@"' _ {}
 
-printf "::set-output name=success::%s" $(cat /workdir/response.json | jq '.data.deletePackageVersion.success')
+
+exit 3
+
+#curl --request POST \
+#  --url https://api.github.com/graphql \
+#  --header "Accept: application/vnd.github.package-deletes-preview+json" \
+#  --header "Authorization: Bearer ${GITHUB_TOKEN}" \
+#  --data "$(cat /workdir/payload.json)" \
+#  -o /workdir/response.json \
+#  -s
+#
+#while [ ! -f /workdir/response.json ]
+#do
+#  sleep 0.1
+#done
+#
+#printf "::set-output name=success::%s" $(cat /workdir/response.json | jq '.data.deletePackageVersion.success')

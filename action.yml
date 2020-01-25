@@ -5,7 +5,7 @@ branding:
   color: 'red'
 inputs:
   packageVersionId:
-    description: 'The version ID of the package to delete'
+    description: 'The version ID or CSV version IDs of the package(s) to delete'
     required: true
 outputs:
   success:
